@@ -1,0 +1,378 @@
+{
+  "format": "lygia-profile",
+  "version": 1,
+  "id": "kenya_l",
+  "name": "Kenya SL28/SL34",
+  "process": "Washed",
+  "level": "Light",
+  "weight_note": "333 g",
+  "source": "LyGia Profile 333g",
+  "unit": "C",
+  "auto_mark": {
+    "DE": true,
+    "FC1s": false
+  },
+  "preheat": {
+    "pid_c": 190.0,
+    "fan": 10
+  },
+  "charge_temp_c": 190.0,
+  "markers": {
+    "TP": {
+      "t": 80,
+      "bt": 97.0
+    },
+    "DE": {
+      "t": 260,
+      "bt": 147.0
+    },
+    "FC1s": {
+      "t": 475,
+      "bt": 183.0
+    },
+    "D": {
+      "t": 560,
+      "bt": 191.5
+    }
+  },
+  "rules": [
+    {
+      "id": 1,
+      "on": true,
+      "note": "Làm nóng trống mức cao cho hạt cứng",
+      "when": {
+        "any": [
+          {
+            "ev": "PREHEAT"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": true,
+          "set_c": 190.0
+        },
+        {
+          "fan": 10
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "on": true,
+      "note": "Đổ hạt 333g: nạp năng lượng mạnh",
+      "when": {
+        "any": [
+          {
+            "ev": "CHARGE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": false
+        },
+        {
+          "heater": 55
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "on": true,
+      "note": "Điểm đáy (~97 °C): kích tối đa 85 %",
+      "when": {
+        "any": [
+          {
+            "ev": "TP"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 85
+        },
+        {
+          "fan": 25
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "on": true,
+      "note": "Giữ xung nhiệt xuyên thấu lõi SL28",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 108
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 85
+        },
+        {
+          "fan": 25
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "on": true,
+      "note": "Hạ nhẹ 5 %",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 122
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 80
+        },
+        {
+          "fan": 30
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "on": true,
+      "note": "Cuối Drying",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 134
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 30
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "on": true,
+      "note": "Chuẩn bị chuyển vàng",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 142
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "on": true,
+      "note": "Chuyển vàng (~147 °C)",
+      "when": {
+        "any": [
+          {
+            "ev": "DE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "on": true,
+      "note": "Đầu Maillard",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 157
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 65
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "on": true,
+      "note": "Giữa Maillard",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 166
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 60
+        },
+        {
+          "fan": 45
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "on": true,
+      "note": "Tiền FC: hạt Kenya nổ rất mạnh",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 176
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 55
+        },
+        {
+          "fan": 50
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "on": true,
+      "note": "Nổ 1 (183.0 °C): mở gió 60 %",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 183
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 45
+        },
+        {
+          "fan": 60
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "on": true,
+      "note": "Giữa DTR: bung hương lý chua đen",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 187
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 40
+        },
+        {
+          "fan": 65
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "on": true,
+      "note": "Xả tại 191.5 °C (DTR 15.2 %)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 189
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 35
+        },
+        {
+          "fan": 65
+        }
+      ]
+    }
+  ]
+}

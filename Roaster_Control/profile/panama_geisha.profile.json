@@ -1,0 +1,378 @@
+{
+  "format": "lygia-profile",
+  "version": 1,
+  "id": "panama_geisha",
+  "name": "Panama Geisha",
+  "process": "Washed",
+  "level": "Light",
+  "weight_note": "333 g",
+  "source": "LyGia Profile 333g",
+  "unit": "C",
+  "auto_mark": {
+    "DE": true,
+    "FC1s": false
+  },
+  "preheat": {
+    "pid_c": 174.0,
+    "fan": 10
+  },
+  "charge_temp_c": 174.0,
+  "markers": {
+    "TP": {
+      "t": 85,
+      "bt": 86.0
+    },
+    "DE": {
+      "t": 270,
+      "bt": 142.0
+    },
+    "FC1s": {
+      "t": 460,
+      "bt": 179.5
+    },
+    "D": {
+      "t": 525,
+      "bt": 185.5
+    }
+  },
+  "rules": [
+    {
+      "id": 1,
+      "on": true,
+      "note": "Làm nóng trống êm cho hạt Geisha",
+      "when": {
+        "any": [
+          {
+            "ev": "PREHEAT"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": true,
+          "set_c": 174.0
+        },
+        {
+          "fan": 10
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "on": true,
+      "note": "Đổ hạt 333g: cấu trúc tế bào hạt xốp",
+      "when": {
+        "any": [
+          {
+            "ev": "CHARGE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": false
+        },
+        {
+          "heater": 45
+        },
+        {
+          "fan": 45
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "on": true,
+      "note": "Điểm đáy (~86 °C): đẩy nhẹ lên 75 %",
+      "when": {
+        "any": [
+          {
+            "ev": "TP"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 30
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "on": true,
+      "note": "Ưu tiên nhiệt đối lưu (Airflow)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 100
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "on": true,
+      "note": "Dẫn dắt RoR mượt",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 114
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "on": true,
+      "note": "Thoát ẩm nhanh",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 125
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 65
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "on": true,
+      "note": "Chuẩn bị chuyển vàng",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 135
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 60
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "on": true,
+      "note": "Chuyển vàng (~142 °C)",
+      "when": {
+        "any": [
+          {
+            "ev": "DE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 60
+        },
+        {
+          "fan": 45
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "on": true,
+      "note": "Đầu Maillard: tôn vinh hương hoa nhài",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 152
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 55
+        },
+        {
+          "fan": 50
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "on": true,
+      "note": "Giữa Maillard: trà Earl Grey & cam",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 162
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 50
+        },
+        {
+          "fan": 50
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "on": true,
+      "note": "Tiền FC",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 172
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 45
+        },
+        {
+          "fan": 55
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "on": true,
+      "note": "Nổ 1 (179.5 °C)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 179
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 40
+        },
+        {
+          "fan": 65
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "on": true,
+      "note": "Giữa DTR ngắn",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 182
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 35
+        },
+        {
+          "fan": 70
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "on": true,
+      "note": "Xả tại 185.5 °C (DTR 12.4 %)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 184
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 30
+        },
+        {
+          "fan": 70
+        }
+      ]
+    }
+  ]
+}

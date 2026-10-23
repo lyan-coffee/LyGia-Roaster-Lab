@@ -1,0 +1,378 @@
+{
+  "format": "lygia-profile",
+  "version": 1,
+  "id": "ethiopia_l",
+  "name": "Ethiopia Washed",
+  "process": "Washed",
+  "level": "Light",
+  "weight_note": "333 g",
+  "source": "LyGia Profile 333g",
+  "unit": "C",
+  "auto_mark": {
+    "DE": true,
+    "FC1s": false
+  },
+  "preheat": {
+    "pid_c": 185.0,
+    "fan": 10
+  },
+  "charge_temp_c": 185.0,
+  "markers": {
+    "TP": {
+      "t": 80,
+      "bt": 94.0
+    },
+    "DE": {
+      "t": 260,
+      "bt": 145.5
+    },
+    "FC1s": {
+      "t": 460,
+      "bt": 181.5
+    },
+    "D": {
+      "t": 535,
+      "bt": 189.0
+    }
+  },
+  "rules": [
+    {
+      "id": 1,
+      "on": true,
+      "note": "Làm nóng trống",
+      "when": {
+        "any": [
+          {
+            "ev": "PREHEAT"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": true,
+          "set_c": 185.0
+        },
+        {
+          "fan": 10
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "on": true,
+      "note": "Đổ hạt 333g: hạt SHG đặc, giữ nhiệt",
+      "when": {
+        "any": [
+          {
+            "ev": "CHARGE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": false
+        },
+        {
+          "heater": 50
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "on": true,
+      "note": "Điểm đáy (~94 °C): kích nhiệt xuyên tâm",
+      "when": {
+        "any": [
+          {
+            "ev": "TP"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 85
+        },
+        {
+          "fan": 25
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "on": true,
+      "note": "Đạt đỉnh RoR sớm (~16.5 °C/p)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 106
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 80
+        },
+        {
+          "fan": 25
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "on": true,
+      "note": "Bắt đầu hạ bậc thang Heater",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 120
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 25
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "on": true,
+      "note": "Thoát ẩm nhanh giữ acid sáng",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 132
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 30
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "on": true,
+      "note": "Chuẩn bị chuyển vàng",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 140
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 30
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "on": true,
+      "note": "Chuyển vàng (~145.5 °C lúc 4:20)",
+      "when": {
+        "any": [
+          {
+            "ev": "DE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "on": true,
+      "note": "Đi gọn qua Maillard giữ hương hoa",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 155
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 65
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "on": true,
+      "note": "Giữa Maillard: hạ Heater bậc 2",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 164
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 60
+        },
+        {
+          "fan": 45
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "on": true,
+      "note": "Tiền FC: triệt tiêu RoR Crash",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 174
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 55
+        },
+        {
+          "fan": 50
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "on": true,
+      "note": "Nổ 1 (181.5 °C): bung hương nhài/cam",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 181
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 45
+        },
+        {
+          "fan": 60
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "on": true,
+      "note": "Giữa DTR: RoR trượt êm ~5.5 °C/p",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 185
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 40
+        },
+        {
+          "fan": 65
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "on": true,
+      "note": "Xả tại 189.0 °C (DTR 14.0 %)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 187
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 35
+        },
+        {
+          "fan": 65
+        }
+      ]
+    }
+  ]
+}

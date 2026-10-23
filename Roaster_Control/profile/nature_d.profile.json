@@ -1,0 +1,378 @@
+{
+  "format": "lygia-profile",
+  "version": 1,
+  "id": "nature_d",
+  "name": "Natural Dark",
+  "process": "Natural",
+  "level": "Dark",
+  "weight_note": "333 g",
+  "source": "LyGia Profile 333g",
+  "unit": "C",
+  "auto_mark": {
+    "DE": true,
+    "FC1s": false
+  },
+  "preheat": {
+    "pid_c": 176.0,
+    "fan": 10
+  },
+  "charge_temp_c": 176.0,
+  "markers": {
+    "TP": {
+      "t": 85,
+      "bt": 88.0
+    },
+    "DE": {
+      "t": 295,
+      "bt": 144.5
+    },
+    "FC1s": {
+      "t": 505,
+      "bt": 181.0
+    },
+    "D": {
+      "t": 615,
+      "bt": 194.0
+    }
+  },
+  "rules": [
+    {
+      "id": 1,
+      "on": true,
+      "note": "Làm nóng trống",
+      "when": {
+        "any": [
+          {
+            "ev": "PREHEAT"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": true,
+          "set_c": 176.0
+        },
+        {
+          "fan": 10
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "on": true,
+      "note": "Đổ hạt 333g: tắt PID, chạy tay",
+      "when": {
+        "any": [
+          {
+            "ev": "CHARGE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "pid": false
+        },
+        {
+          "heater": 45
+        },
+        {
+          "fan": 45
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "on": true,
+      "note": "Điểm đáy (~88 °C)",
+      "when": {
+        "any": [
+          {
+            "ev": "TP"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 25
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "on": true,
+      "note": "Duy trì đà nhiệt",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 101
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 75
+        },
+        {
+          "fan": 30
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "on": true,
+      "note": "Tăng đối lưu gió",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 116
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "on": true,
+      "note": "Cuối Drying",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 128
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 70
+        },
+        {
+          "fan": 35
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "on": true,
+      "note": "Chuẩn bị chuyển vàng",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 137
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 65
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "on": true,
+      "note": "Chuyển vàng (~144.5 °C)",
+      "when": {
+        "any": [
+          {
+            "ev": "DE"
+          }
+        ],
+        "all": []
+      },
+      "do": [
+        {
+          "heater": 65
+        },
+        {
+          "fan": 40
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "on": true,
+      "note": "Đầu Maillard",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 155
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 60
+        },
+        {
+          "fan": 45
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "on": true,
+      "note": "Giữa Maillard",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 165
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 55
+        },
+        {
+          "fan": 50
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "on": true,
+      "note": "Tiền FC",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 174
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 50
+        },
+        {
+          "fan": 55
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "on": true,
+      "note": "Vào FC (~181 °C)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 181
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 45
+        },
+        {
+          "fan": 65
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "on": true,
+      "note": "Đẩy lên Dark chocolate",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 188
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 45
+        },
+        {
+          "fan": 70
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "on": true,
+      "note": "Mở gió mạnh tới Drop (194.0 °C)",
+      "when": {
+        "any": [
+          {
+            "bt_gt": 191
+          }
+        ],
+        "all": [
+          {
+            "after": "TP"
+          }
+        ]
+      },
+      "do": [
+        {
+          "heater": 40
+        },
+        {
+          "fan": 75
+        }
+      ]
+    }
+  ]
+}
